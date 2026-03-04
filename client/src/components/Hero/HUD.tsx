@@ -20,13 +20,13 @@ const HUD = () => {
             color: 'rgba(255,255,255,0.3)',
         }}>
             {/* Top-left */}
-            <div style={{ position: 'absolute', top: 40, left: 32, display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ position: 'absolute', top: 120, left: 32, display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#07F49E', boxShadow: '0 0 8px #07F49E', display: 'inline-block' }} className="animate-pulse" />
                 <span style={{ letterSpacing: '0.35em', textTransform: 'uppercase' }}>DRONE LINK: ACTIVE</span>
             </div>
 
             {/* Top-right */}
-            <div style={{ position: 'absolute', top: 40, right: 32, display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ position: 'absolute', top: 120, right: 32, display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ letterSpacing: '0.35em', textTransform: 'uppercase' }}>NODE: 0x82A1C</span>
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#42C6FF', boxShadow: '0 0 8px #42C6FF', display: 'inline-block' }} />
             </div>

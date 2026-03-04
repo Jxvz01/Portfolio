@@ -81,7 +81,7 @@ const Hero = () => {
             <HUD />
 
             {/* ── Content ── */}
-            <div className="relative z-20 text-center px-6 pointer-events-none">
+            <div className="relative z-20 text-center px-6 pt-20 pointer-events-none">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
