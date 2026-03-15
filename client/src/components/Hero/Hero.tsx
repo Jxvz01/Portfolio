@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Canvas } from '@react-three/fiber';
-import { ContactShadows, Environment, Float } from '@react-three/drei';
-import Drone from './Drone';
 import HUD from './HUD';
 
 const taglines = [
@@ -62,20 +59,6 @@ const Hero = () => {
                 <div className="aurora-blob w-[400px] h-[400px] bg-aurora-1 top-[40%] right-[15%]" />
             </div>
 
-            {/* ── 3D Scene ── */}
-            <div className="absolute inset-0 z-10">
-                <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-                    <ambientLight intensity={0.5} />
-                    <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} />
-                    <pointLight position={[-10, -10, -10]} intensity={0.5} />
-
-                    <Suspense fallback={null}>
-                        <Drone mouse={mouse} />
-                        <ContactShadows position={[0, -1.5, 0]} opacity={0.4} scale={10} blur={2} far={4.5} />
-                        <Environment preset="city" />
-                    </Suspense>
-                </Canvas>
-            </div>
 
             {/* ── HUD Overlay ── */}
             <HUD />

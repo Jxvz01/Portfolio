@@ -142,8 +142,8 @@ const Drone = ({ mouse }: { mouse: React.MutableRefObject<[number, number]> }) =
                     <mesh material={motorMat}>
                         <boxGeometry args={[0.08, 0.08, 0.1]} />
                     </mesh>
-                    <mesh position={[0, -0.02, -0.06]} material={lensMat}>
-                        <cylinderGeometry args={[0.04, 0.045, 0.06, 16]} rotation={[Math.PI / 2, 0, 0]} />
+                    <mesh position={[0, -0.02, -0.06]} rotation={[Math.PI / 2, 0, 0]} material={lensMat}>
+                        <cylinderGeometry args={[0.04, 0.045, 0.06, 16]} />
                     </mesh>
                 </group>
 
@@ -205,58 +205,5 @@ const Arm = ({ dx, dz, isFront, motorMat, propMat, vel, bodyMat }: {
     );
 };
 
-const Arm = ({ dx, dz, motorMat, propMat, vel }: { dx: number, dz: number, motorMat: THREE.Material, propMat: THREE.Material, vel: React.MutableRefObject<THREE.Vector2> }) => {
-    const propGroupRef = useRef<THREE.Group>(null!);
-    const prop1Ref = useRef<THREE.Mesh>(null!);
-    const prop2Ref = useRef<THREE.Mesh>(null!);
-
-    useFrame((_, delta) => {
-        if (!propGroupRef.current) return;
-
-        const speed = vel.current.length();
-        const isMoving = speed > 0.5;
-        const rotationSpeed = isMoving ? 50 : 25;
-
-        // Opposite directions for diagonal pairs (simplified)
-        const direction = (dx * dz > 0) ? 1 : -1;
-        propGroupRef.current.rotation.y += delta * rotationSpeed * direction;
-
-        // Motion Blur Effect
-        if (prop1Ref.current && prop2Ref.current) {
-            const material = (prop1Ref.current.material as THREE.MeshStandardMaterial);
-            material.opacity = isMoving ? 0.4 : 0.9;
-
-            // Slight stretch for blur
-            const scale = isMoving ? 1.4 : 1.0;
-            propGroupRef.current.scale.set(scale, 1, scale);
-        }
-    });
-
-    return (
-        <group position={[dx * 0.18, 0, dz * 0.12]} rotation={[0, -Math.atan2(dx, dz), 0]}>
-            {/* Arm geometry (Tapered) */}
-            <mesh material={motorMat} position={[0, 0, 0.1]}>
-                <boxGeometry args={[0.04, 0.03, 0.25]} />
-            </mesh>
-
-            {/* Motor housing */}
-            <group position={[0, 0.02, 0.22]}>
-                <mesh material={motorMat}>
-                    <cylinderGeometry args={[0.035, 0.035, 0.05, 16]} />
-                </mesh>
-
-                {/* Propeller Pair */}
-                <group ref={propGroupRef} position={[0, 0.03, 0]}>
-                    <mesh ref={prop1Ref} material={propMat}>
-                        <boxGeometry args={[0.22, 0.005, 0.02]} />
-                    </mesh>
-                    <mesh ref={prop2Ref} rotation={[0, Math.PI / 2, 0]} material={propMat}>
-                        <boxGeometry args={[0.01, 0.01, 0.01]} /> {/* Center cap */}
-                    </mesh>
-                </group>
-            </group>
-        </group>
-    );
-};
 
 export default Drone;
